@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 إحصائيات النقرات</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; background: #f4f4f4; }
+        .container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); max-width: 600px; margin: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 10px; border: 1px solid #ddd; }
+        th { background: #28a745; color: white; }
+        button { margin-top: 10px; padding: 10px 20px; border: none; border-radius: 5px; background: #007bff; color: white; cursor: pointer; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>📊 إحصائيات النقرات</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>📅 التاريخ</th>
+                    <th>⏳ الوقت</th>
+                    <th>🌍 الدولة</th>
+                    <th>🔗 المصدر</th>
+                    <th>📱 الجهاز</th>
+                </tr>
+            </thead>
+            <tbody id="stats-table"></tbody>
+        </table>
+        <button onclick="goBack()">🔙 العودة</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let trackingData = JSON.parse(localStorage.getItem("trackingData")) || {};
+            let statsTable = document.getElementById("stats-table");
+
+            for (let date in trackingData) {
+                trackingData[date].forEach(click => {
+                    let row = `<tr>
+                        <td>${date}</td>
+                        <td>${click.time}</td>
+                        <td>${click.country}</td>
+                        <td>${click.referrer}</td>
+                        <td>${click.device}</td>
+                    </tr>`;
+                    statsTable.innerHTML += row;
+                });
+            }
+        });
+
+        function goBack() {
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+</html>
